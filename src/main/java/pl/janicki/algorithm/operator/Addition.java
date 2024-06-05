@@ -5,7 +5,6 @@ import pl.janicki.algorithm.IncorrectInputException;
 import java.util.Deque;
 
 public class Addition implements Operator {
-
     @Override
     public int operation(Deque<Integer> stack) {
         if (stack.size() < 2) {

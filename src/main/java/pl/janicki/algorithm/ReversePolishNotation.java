@@ -14,6 +14,9 @@ import java.util.Deque;
 import java.util.List;
 
 public class ReversePolishNotation {
+    public static final String MESSAGE_INPUT_CANNOT_BE_EMPTY = "Input cannot be empty";
+    public static final String MESSAGE_INCORRECT_INPUT_FORMAT = "Incorrect input format";
+    public static final String MESSAGE_OPERATION_0_NOT_SUPPORTED = "Operation {0} not supported";
 
     private final List<Operator> operators = List.of(
             new Addition(),
@@ -25,8 +28,8 @@ public class ReversePolishNotation {
     );
 
     public int calculate(String input) {
-        if (input == null) {
-            throw new IncorrectInputException("Input cannot be null");
+        if (input == null || input.isBlank()) {
+            throw new IncorrectInputException(MESSAGE_INPUT_CANNOT_BE_EMPTY);
         }
 
         Deque<Integer> stack = new ArrayDeque<>();
@@ -37,7 +40,7 @@ public class ReversePolishNotation {
         }
 
         if (stack.size() != 1) {
-            throw new IncorrectInputException("Incorrect input format");
+            throw new IncorrectInputException(MESSAGE_INCORRECT_INPUT_FORMAT);
         }
 
         return stack.pop();
@@ -55,7 +58,7 @@ public class ReversePolishNotation {
     private int operate(Deque<Integer> stack, String operator) {
         return operators.stream()
                 .filter(x -> x.canHandle(operator))
-                .findFirst().orElseThrow(() -> new IncorrectInputException(MessageFormat.format("Operation {0} not supported", operator)))
+                .findFirst().orElseThrow(() -> new IncorrectInputException(MessageFormat.format(MESSAGE_OPERATION_0_NOT_SUPPORTED, operator)))
                 .operation(stack);
     }
 }

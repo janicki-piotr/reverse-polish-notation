@@ -4,7 +4,6 @@ import java.util.Deque;
 import java.util.Objects;
 
 public interface Operator {
-
     int operation(Deque<Integer> stack);
 
     String getOperator();
